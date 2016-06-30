@@ -1,8 +1,9 @@
 extern crate curl;
-extern crate rustc_serialize;
 extern crate docopt;
-extern crate url;
 extern crate ini;
+extern crate rustc_serialize;
+extern crate url;
+extern crate webbrowser;
 
 use ini::Ini;
 use url::Url;
@@ -167,7 +168,7 @@ fn main() {
                 die!(e);
             });
         }
-        Some(filename) => {
+        Some(ref filename) => {
             let mut file = File::open(filename).unwrap_or_else(|e| {
                 die!(e.to_string());
             });
@@ -182,7 +183,7 @@ fn main() {
     println!("Uploading to Pastery...");
     let response = upload(input,
                           config.api_key,
-                          args.flag_title,
+                          args.flag_title.or(args.arg_filename),
                           args.flag_lang,
                           args.flag_duration,
                           args.flag_max_views)
@@ -190,9 +191,16 @@ fn main() {
             die!(e);
         });
 
-    println!("Paste URL: {}",
-             response.get("url").expect("URL not found in response.").as_string().unwrap());
+    let url = response
+        .get("url")
+        .expect("URL not found in response.")
+        .as_string()
+        .unwrap()
+        .to_string();
+
+    println!("Paste URL: {}", url);
 
     if args.flag_open_browser {
+        let _ = webbrowser::open(&url);
     }
 }
