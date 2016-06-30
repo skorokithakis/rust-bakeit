@@ -1,8 +1,12 @@
 image: jimmycuadra/rust
 
-build:
-    script: cargo build
-    cache:
-        paths:
-            - target/
+stages:
+  - build
 
+build:
+  stage: build
+  script:
+    - cargo build
+  cache:
+    paths:
+      - target/
