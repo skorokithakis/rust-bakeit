@@ -1,5 +1,5 @@
 [package]
-name = "rbakeit"
+name = "bakeit"
 version = "0.1.0"
 authors = ["Stavros Korokithakis <stavros@korokithakis.net>"]
 
