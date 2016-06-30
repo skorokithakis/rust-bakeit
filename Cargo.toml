@@ -1,7 +1,11 @@
 [package]
 name = "bakeit"
 version = "0.1.0"
-authors = ["Stavros Korokithakis <stavros@korokithakis.net>"]
+authors = ["Stavros Korokithakis <hi@stavros.io>"]
+description = "BakeIt is a command line utility for Pastery, the best pastebin in the world."
+repository = "https://github.com/skorokithakis/rust-bakeit"
+homepage = "https://www.pastery.net/"
+license = "MIT"
 
 [dependencies]
 curl="0.3.0"
