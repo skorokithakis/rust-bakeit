@@ -10,3 +10,6 @@ build:
   cache:
     paths:
       - target/
+  artifacts:
+    paths:
+      - target/release/bakeit
