@@ -1,6 +1,6 @@
 [root]
 name = "bakeit"
-version = "0.1.1"
+version = "0.1.2-pre"
 dependencies = [
  "curl 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "docopt 0.6.81 (registry+https://github.com/rust-lang/crates.io-index)",
