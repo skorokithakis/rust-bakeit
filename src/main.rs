@@ -27,7 +27,7 @@ Usage:
 Options:
   -t --title=<title>      The title of the paste.
   -l --lang=<lang>        The language highlighter to use.
-  -d --duration=<mins>    The duration the paste should live for [default: 60].
+  -d --duration=<mins>    The duration the paste should live for.
   -v --max-views=<views>  How many times the paste can be viewed before it expires [default: 0].
   -b --open-browser       Automatically open a browser window when done.
 
@@ -40,7 +40,7 @@ struct Args {
     arg_filename: Option<String>,
     flag_title: Option<String>,
     flag_lang: Option<String>,
-    flag_duration: i32,
+    flag_duration: Option<i32>,
     flag_max_views: i32,
     flag_open_browser: bool,
     flag_version: bool,
@@ -49,6 +49,7 @@ struct Args {
 #[derive(Default)]
 struct Config {
     api_key: String,
+    duration: Option<i32>,
 }
 
 macro_rules! die{($e:expr) => {println!("{}", $e); std::process::exit(1)}}
@@ -57,7 +58,7 @@ fn upload(input: String,
           api_key: String,
           title: Option<String>,
           language: Option<String>,
-          duration: i32,
+          duration: Option<i32>,
           max_views: i32)
           -> Result<Object, String> {
 
@@ -74,8 +75,9 @@ fn upload(input: String,
         if let Some(language) = language {
             qp.append_pair("language", &language);
         }
-        if duration > 0 {
-            qp.append_pair("duration", &duration.to_string());
+        let dur = duration.unwrap_or(0);
+        if dur > 0 {
+            qp.append_pair("duration", &dur.to_string());
         }
         if max_views > 0 {
             qp.append_pair("max_views", &max_views.to_string());
@@ -146,6 +148,10 @@ fn read_config() -> Config {
         })
         .clone();
 
+    config.duration = section
+        .get("duration")
+        .map(|s| s.parse::<i32>().unwrap_or_else(|_| {die!("The duration parameter of the config file is not a valid number.");}));
+
     config
 }
 
@@ -185,7 +191,7 @@ fn main() {
                           config.api_key,
                           args.flag_title.or(args.arg_filename),
                           args.flag_lang,
-                          args.flag_duration,
+                          args.flag_duration.or(config.duration),
                           args.flag_max_views)
         .unwrap_or_else(|e| {
             die!(e);
