@@ -2,6 +2,7 @@
 name = "bakeit"
 version = "0.1.2-pre"
 dependencies = [
+ "clipboard 0.0.1",
  "curl 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "docopt 0.6.81 (registry+https://github.com/rust-lang/crates.io-index)",
  "rust-ini 0.9.5 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -17,6 +18,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "memchr 0.1.11 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
+
+[[package]]
+name = "clipboard"
+version = "0.0.1"
 
 [[package]]
 name = "curl"

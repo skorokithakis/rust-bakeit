@@ -8,6 +8,8 @@ homepage = "https://www.pastery.net/"
 license = "MIT"
 
 [dependencies]
+clipboard = { path = "/tmp/clipboard" }
+#clipboard = { git = "https://github.com/skorokithakis/clipboard" }
 curl="0.3.0"
 docopt = "0.6"
 rustc-serialize = "0.3"

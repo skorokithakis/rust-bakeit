@@ -1,3 +1,4 @@
+extern crate clipboard;
 extern crate curl;
 extern crate docopt;
 extern crate ini;
@@ -205,6 +206,8 @@ fn main() {
         .to_string();
 
     println!("Paste URL: {}", url);
+
+    let _ = clipboard::write(&url);
 
     if args.flag_open_browser {
         let _ = webbrowser::open(&url);
