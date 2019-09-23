@@ -10,6 +10,7 @@ license = "MIT"
 [dependencies]
 clipboard = { git = "https://github.com/skorokithakis/clipboard" }
 curl="0.3.0"
+dirs = "2.0.2"
 docopt = "0.6"
 rustc-serialize = "0.3"
 rust-ini = "0.9.5"
