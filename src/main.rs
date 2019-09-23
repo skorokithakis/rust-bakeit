@@ -4,6 +4,7 @@ extern crate dirs;
 extern crate docopt;
 extern crate ini;
 extern crate rustc_serialize;
+extern crate serde;
 extern crate url;
 extern crate webbrowser;
 
@@ -12,6 +13,7 @@ use dirs::home_dir;
 use docopt::Docopt;
 use ini::Ini;
 use rustc_serialize::json::{Json, Object};
+use serde::Deserialize;
 use std::fs::File;
 use std::io::{stdin, Read};
 use std::str;
@@ -36,7 +38,7 @@ Options:
   -V --version            Show version.
 ";
 
-#[derive(Debug, RustcDecodable)]
+#[derive(Debug, Deserialize)]
 struct Args {
     arg_filename: Option<String>,
     flag_title: Option<String>,
@@ -180,7 +182,7 @@ fn read_config() -> Config {
 
 fn main() {
     let args: Args = Docopt::new(USAGE)
-        .and_then(|d| d.decode())
+        .and_then(|d| d.deserialize())
         .unwrap_or_else(|e| e.exit());
 
     let mut input = String::new();
